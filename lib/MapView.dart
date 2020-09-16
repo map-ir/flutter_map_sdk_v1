@@ -9,80 +9,52 @@ import 'package:map_controller/map_controller.dart';
 import 'mapir.dart';
 
 class MapView extends StatefulWidget {
-  // double markerSize = 40.0;
-  // List<Marker> markers;
-  // AnchorAlign markerAnchorAlign = AnchorAlign.top;
-  // IconData markerIcon = Icons.location_on;
+  StatefulMapController statefulMapController;
+  MapController mapController;
+
+  MapView({Key key, this.mapController, this.statefulMapController})
+      : super(key: key);
+
+  // StatefulMapController _statefulMapController;
   //
-  // static PopupController popupLayerController = new PopupController();
-
-  // List<LatLng> markerPoints = [
-  //   LatLng(35.713904, 51.400909),
-  // ];
-
-  MapView({Key key}) : super(key: key);
+  // void setController(StatefulMapController controller) {
+  //   _statefulMapController = controller;
+  // }
 
   @override
   _MapViewState createState() => _MapViewState();
 }
 
 class _MapViewState extends State<MapView> {
+  // MapController mapController;
+
+  // StatefulMapController statefulMapController;
+  StreamSubscription<StatefulMapControllerStateChange> sub;
+
   MapOptions mapOptions = MapOptions(
-    center: LatLng(35.713904, 51.400909),
-    zoom: 14,
+    center: LatLng(35.713949, 51.399086),
+    zoom: 15,
     minZoom: 1.0,
-    maxZoom: 22.0,
+    maxZoom: 18.0,
     // plugins: [PopupMarkerPlugin()],
     // onTap: (_) => popupLayerController.hidePopup()
   );
 
-  MapController mapController;
-  StatefulMapController statefulMapController;
-  StreamSubscription<StatefulMapControllerStateChange> sub;
+  // StatefulMapController getController() {
+  //   return statefulMapController;
+  // }
 
   @override
   void initState() {
-    mapController = MapController();
-    statefulMapController = StatefulMapController(mapController: mapController);
-
     // wait for the controller to be ready before using it
-    statefulMapController.onReady
+    widget.statefulMapController.onReady
         .then((_) => print("The map controller is ready"));
 
     /// [Important] listen to the changefeed to rebuild the map on changes:
     /// this will rebuild the map when for example addMarker or any method
     /// that mutates the map assets is called
-    sub = statefulMapController.changeFeed.listen((change) => setState(() {}));
-
-    statefulMapController.addStatefulMarker(
-        name: "some marker",
-        statefulMarker: StatefulMarker(
-            height: 80.0,
-            width: 120.0,
-            state: <String, dynamic>{"showText": false},
-            point: LatLng(35.713904, 51.400909),
-            builder: (BuildContext context, Map<String, dynamic> state) {
-              Widget w;
-              final markerIcon = IconButton(
-                  icon: const Icon(Icons.location_on),
-                  onPressed: () => statefulMapController.mutateMarker(
-                      name: "some marker",
-                      property: "showText",
-                      value: !(state["showText"] as bool)));
-              if (state["showText"] == true) {
-                w = Column(children: <Widget>[
-                  markerIcon,
-                  Container(
-                      color: Colors.transparent,
-                      child: Padding(
-                          padding: const EdgeInsets.all(0.0),
-                          child: Text("map.ir", textScaleFactor: 1))),
-                ]);
-              } else
-                w = markerIcon;
-
-              return w;
-            }));
+    sub = widget.statefulMapController.changeFeed
+        .listen((change) => setState(() {}));
 
     super.initState();
   }
@@ -99,7 +71,7 @@ class _MapViewState extends State<MapView> {
       body: SafeArea(
           child: Stack(children: <Widget>[
         FlutterMap(
-          mapController: mapController,
+          mapController: widget.mapController,
           options: mapOptions,
           layers: [
             TileLayerOptions(
@@ -115,9 +87,9 @@ class _MapViewState extends State<MapView> {
                   version: '1.1.0',
                   otherParameters: {}),
             ),
-            MarkerLayerOptions(markers: statefulMapController.markers),
-            PolylineLayerOptions(polylines: statefulMapController.lines),
-            PolygonLayerOptions(polygons: statefulMapController.polygons)
+            MarkerLayerOptions(markers: widget.statefulMapController.markers),
+            PolylineLayerOptions(polylines: widget.statefulMapController.lines),
+            PolygonLayerOptions(polygons: widget.statefulMapController.polygons)
           ],
         ),
         // ...
