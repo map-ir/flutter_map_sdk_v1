@@ -15,7 +15,9 @@ class MapirMapView extends StatefulWidget {
   VoidCallback onMapReady;
   Function(LatLng) onMapClick;
   Function(LatLng) onMapLongClick;
+  Function(LatLng) onLocationUpdate;
   LatLng lastKnownLocation;
+  bool showLocationMarker;
 
   MapirMapView(
       {Key key,
@@ -23,7 +25,9 @@ class MapirMapView extends StatefulWidget {
       this.statefulMapController,
       this.onMapReady,
       this.onMapClick,
-      this.onMapLongClick})
+      this.onMapLongClick,
+      this.onLocationUpdate,
+      this.showLocationMarker = false})
       : super(key: key);
 
   @override
@@ -54,6 +58,15 @@ class _MapirMapViewState extends State<MapirMapView> {
         onTap: (point) => widget.onMapClick(point),
         onLongPress: (point) => widget.onMapLongClick(point));
 
+    if (widget.onLocationUpdate != null)
+      getCurrentLocation(
+          statefulMapController: widget.statefulMapController,
+          showMarker: widget.showLocationMarker);
+    else if (widget.showLocationMarker)
+      getCurrentLocation(
+          statefulMapController: widget.statefulMapController,
+          showMarker: widget.showLocationMarker);
+
     super.initState();
   }
 
@@ -65,7 +78,8 @@ class _MapirMapViewState extends State<MapirMapView> {
 
   @override
   Widget build(BuildContext context) {
-    var logo = Image.asset('assets/images/logo.png', width: 100, height: 48);
+    // var logo =
+    //     Image.asset('lib/assets/images/logo.png', width: 100, height: 48);
 
     return Scaffold(
       body: SafeArea(
@@ -102,10 +116,15 @@ class _MapirMapViewState extends State<MapirMapView> {
                   ],
                 ),
                 padding: EdgeInsets.fromLTRB(0, 0, 12, 0))),
-        // Align(
-        //     alignment: Alignment.bottomLeft,
-        //     child:
-        //         Padding(child: logo, padding: EdgeInsets.fromLTRB(8, 0, 0, 0)))
+        Align(
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+                child: Image.network(
+                  'https://corp.map.ir/wp-content/uploads/2019/06/map-site-logo-1.png',
+                  width: 100,
+                  height: 48,
+                ),
+                padding: EdgeInsets.fromLTRB(8, 0, 0, 8)))
       ])),
     );
   }
@@ -135,6 +154,9 @@ class _MapirMapViewState extends State<MapirMapView> {
     location.onLocationChanged.listen((LocationData currentLocation) {
       widget.lastKnownLocation =
           LatLng(_locationData.latitude, _locationData.longitude);
+
+      if (widget.onLocationUpdate != null)
+        widget.onLocationUpdate(widget.lastKnownLocation);
 
       if (showMarker) {
         statefulMapController.addMarker(

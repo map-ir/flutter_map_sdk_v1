@@ -1,5 +1,5 @@
 name: flutter_map_sdk_v1
-description: show map on your device
+description: show mapir map on your device
 version: 0.0.3
 author: mortezahosseinee@map.ir
 homepage: https://map.ir
@@ -26,9 +26,8 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/logo.jpg
-    - assets/images/logo.png
-    - assets/images/man.jpg
+    - lib/assets/images/logo.jpg
+    - lib/assets/images/logo.png
 
   # To add assets to your package, add an assets section, like this:
   # assets:

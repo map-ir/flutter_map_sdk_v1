@@ -84,9 +84,6 @@ class _MyAppState extends State<MyApp> {
             statefulMapController: statefulMapController,
             onMapReady: () {
               loadData(statefulMapController);
-              // getCurrentLocation(
-              //       statefulMapController: statefulMapController,
-              //       showMarker: false);
             },
             onMapClick: (location) {
               Fluttertoast.showToast(
@@ -109,28 +106,19 @@ class _MyAppState extends State<MyApp> {
                   backgroundColor: Colors.green,
                   textColor: Colors.white,
                   fontSize: 16.0);
-            })
-        // {
-        //   print(statefulMapController.zoom);
-        //   statefulMapController.zoomIn();
-        //   statefulMapController.zoomOut();
-        //
-        //   statefulMapController.zoomTo(1);
-        //
-        //   print(statefulMapController.center);
-        //   statefulMapController.centerOnPoint(LatLng(35.714345, 51.400304));
-        //
-        //   AnchorPos pos = <AnchorAlign dynamic>{ anchor:  AnchorAlign.top};
-        //   pos.value = AnchorAlign.top;
-        //
-        // statefulMapController.addMarker(
-        //     marker: Marker(
-        //         point: LatLng(35.714345, 51.400304),
-        //         width: 30.0,
-        //         height: 30.0),
-        //     name: "testMarker");
-        // }),
-        );
+            },
+            onLocationUpdate: (location) {
+              Fluttertoast.showToast(
+                  msg:
+                      "موقعیت جدید: \n${location.latitude}, ${location.longitude}",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 1,
+                  backgroundColor: Colors.blue,
+                  textColor: Colors.white,
+                  fontSize: 16.0);
+            },
+            showLocationMarker: true));
   }
 
   void loadData(statefulMapController) async {
