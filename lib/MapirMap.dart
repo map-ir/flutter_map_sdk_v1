@@ -1,9 +1,9 @@
-import 'package:flutter/cupertino.dart';
-
-class MapirMap extends StatefulWidget {
+class MapirMap {
   static String apiKey = "";
   static MapirMap instance;
-  static String userAgent = "";
+  String userAgent = "";
+
+  String get apikey => apiKey;
 
   static MapirMap init(context, apiKey) {
     if (instance == null)
@@ -41,15 +41,5 @@ class MapirMap extends StatefulWidget {
 
   static String toHumanReadableAscii(String s) {
     return s;
-  }
-
-  @override
-  _MapirMapState createState() => _MapirMapState();
-}
-
-class _MapirMapState extends State<MapirMap> {
-  @override
-  Widget build(BuildContext context) {
-    return null;
   }
 }
