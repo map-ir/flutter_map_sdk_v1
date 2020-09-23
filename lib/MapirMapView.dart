@@ -78,9 +78,6 @@ class _MapirMapViewState extends State<MapirMapView> {
 
   @override
   Widget build(BuildContext context) {
-    // var logo =
-    //     Image.asset('lib/assets/images/logo.png', width: 100, height: 48);
-
     return Scaffold(
       body: SafeArea(
           child: Stack(children: <Widget>[
@@ -119,11 +116,10 @@ class _MapirMapViewState extends State<MapirMapView> {
         Align(
             alignment: Alignment.bottomLeft,
             child: Padding(
-                child: Image.network(
-                  'https://corp.map.ir/wp-content/uploads/2019/06/map-site-logo-1.png',
-                  width: 100,
-                  height: 48,
-                ),
+                child: Image.asset(
+                    'packages/flutter_map_sdk_v1/assets/images/logo.png',
+                    width: 100,
+                    height: 48),
                 padding: EdgeInsets.fromLTRB(8, 0, 0, 8)))
       ])),
     );
