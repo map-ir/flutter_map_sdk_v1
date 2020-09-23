@@ -154,7 +154,7 @@ packages:
     source: hosted
     version: "3.0.0"
   flutter_map:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_map
       url: "https://pub.dartlang.org"
@@ -227,7 +227,7 @@ packages:
     source: hosted
     version: "0.6.2"
   latlong:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: latlong
       url: "https://pub.dartlang.org"

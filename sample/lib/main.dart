@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_map_sdk_v1/flutter_map_sdk_v1.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 void main() => runApp(MyApp());
 
@@ -85,39 +84,9 @@ class _MyAppState extends State<MyApp> {
             onMapReady: () {
               loadData(statefulMapController);
             },
-            onMapClick: (location) {
-              Fluttertoast.showToast(
-                  msg:
-                      "نقشه را کلیک کردید. \n${location.latitude}, ${location.longitude}",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb: 1,
-                  backgroundColor: Colors.red,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
-            },
-            onMapLongClick: (location) {
-              Fluttertoast.showToast(
-                  msg:
-                      "نقشه را لانگ کلیک کردید. \n${location.latitude}, ${location.longitude}",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb: 1,
-                  backgroundColor: Colors.green,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
-            },
-            onLocationUpdate: (location) {
-              Fluttertoast.showToast(
-                  msg:
-                      "موقعیت جدید: \n${location.latitude}, ${location.longitude}",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb: 1,
-                  backgroundColor: Colors.blue,
-                  textColor: Colors.white,
-                  fontSize: 16.0);
-            },
+            onMapClick: (location) {},
+            onMapLongClick: (location) {},
+            onLocationUpdate: (location) {},
             showLocationMarker: true));
   }
 

@@ -1,7 +1,6 @@
 name: flutter_map_sdk_v1
 description: show mapir map on your device
-version: 0.0.3
-author: mortezahosseinee@map.ir
+version: 0.0.5
 homepage: https://map.ir
 
 environment:
@@ -14,6 +13,8 @@ dependencies:
   device_info: ^0.4.2+7
   map_controller: ^0.8.0
   location: ^3.0.0
+  flutter_map: ^0.9.0
+  latlong: ^0.6.1
 
 dev_dependencies:
   flutter_test:
